@@ -23,7 +23,7 @@ The generator relies on the same principles behind Wave Function Collapse, thoug
     1. Randomize the `Array` of unsolved `Cell`s fairly.
     2. Pick a `Cell` with the lowest available options.
     3. Collapse the chosen `Cell`.
-    4. Remove the chosen `Cell` from the remaining unsoled `Cell`s.
+    4. Remove the chosen `Cell` from the remaining unsolved `Cell`s.
 4. Done!
 
 ## Known Problems
