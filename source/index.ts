@@ -41,6 +41,30 @@ class Cell {
 		return this._value;
 	}
 
+	set value(v) {
+		if ((typeof(v) !== "number") || (v === 0)) {
+			if (this._value !== 0) {
+				// Add the old value to the possibilities again.
+				this._opt_row.add(this._value);
+				this._opt_col.add(this._value);
+				this._opt_grp.add(this._value);
+			}
+			this._value = 0;
+		} else {
+			// Clear any previous value.
+			this.value = 0;
+
+			// Update to the new value.
+			this._value = v;
+
+		// Eliminate this value from the possibilities.
+		this._opt_row.delete(this._value);
+		this._opt_col.delete(this._value);
+		this._opt_grp.delete(this._value);
+		
+		}
+	}
+
 	get options(): Array<number> {
 		return [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((v) => {
 			return (this._opt_col.has(v) && this._opt_row.has(v) && this._opt_grp.has(v));
@@ -55,24 +79,17 @@ class Cell {
 
 		// Get a random possible value.
 		options.shuffleArray();
-		this._value = options[0];
-
-		// Eliminate this value from the possibilities.
-		this._opt_row.delete(this._value);
-		this._opt_col.delete(this._value);
-		this._opt_grp.delete(this._value);
+		this.set(options[0]);
 
 		return this.value;
 	}
 
-	clear() {
-		// Add the old value to the possibilities again.
-		this._opt_row.add(this._value);
-		this._opt_col.add(this._value);
-		this._opt_grp.add(this._value);
+	set(value: number) {
+		this.value = value;
+	}
 
-		// Then reset the value.
-		this._value = 0;
+	clear() {
+		this.value = 0;
 	}
 }
 
