@@ -57,10 +57,10 @@ class Cell {
 			// Update to the new value.
 			this._value = v;
 
-		// Eliminate this value from the possibilities.
-		this._opt_row.delete(this._value);
-		this._opt_col.delete(this._value);
-		this._opt_grp.delete(this._value);
+			// Eliminate this value from the possibilities.
+			this._opt_row.delete(this._value);
+			this._opt_col.delete(this._value);
+			this._opt_grp.delete(this._value);
 		
 		}
 	}
@@ -185,9 +185,10 @@ class Field {
 
 	log() {
 		for (let y = 0; y < FIELD_SIZE; y++) {
-			const row: Array<number> = [];
+			const row: Array<number|string> = [];
 			for (let x = 0; x < FIELD_SIZE; x++) {
-				row.push(this.at(x, y).value);
+				const v = this.at(x, y).value;
+				row.push(v ? v : " ");
 			}
 			console.log(row.join(", "));
 		}
@@ -195,6 +196,5 @@ class Field {
 }
 
 const f = new Field();
-console.log(Process.argv);
 f.generate(Process.argv.length >= 3 ? parseInt(Process.argv[2], 10) : 0);
 f.log();
